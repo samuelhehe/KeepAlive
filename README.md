@@ -1,27 +1,27 @@
 # KeepAlive
-Android-AppDaemon
+
 =================
 
-App process daemon, used to keep your app alive.
+从以前开发的项目中整理出来的一种三角调用式保活机制，能够根据不同的系统版本进行选择性适配
 
 Usage
 =====
-* This daemon can be added in application or service in your app, use `Daemon.run(context, daemonServiceClazz, intervalTime)` to run the daemon, then you can do something in onStartCommand of daemon service.
-* You need to add `android:exported="true"` to your daemon service in manifest so that daemon can start up your daemon service.
-* If you want to monitor the uninstall of app, see also [Android-AppUninstallWatcher][1].
+
+* 可以按照该库的引用方式添加到自己的项目中， 启动SyncService 保证自己的Service保活。 
+* 可以使用检查调用进程 ，提高推送到达率。
 
 Note
 ====
 该库提供了三种唤醒方式
 1. SyncAdapter  ,利用系统账号同步绑定的SyncService 的  进行唤醒。
-2. Daemon 这个第三方库引用，保证了5.0以下大部分机型的保活，除小米机型外。 
-3. 最新添加了JobService 这个计划循环任务，检查Daemon的存活 。 因为这个是21 出的api 基本上在5.0及以上有效。 
-
+2. Daemon 这个第三方库引用，保证了5.0以下大部分机型的保活，除小米机型外。 注意添加export=true ，在DaemonService Manifest.xml 文件中
+3. 最新添加了JobService 这个计划循环任务，检查Daemon的存活 。 因为这个是21出的api 基本上在5.0及以上有效。 
 
 Final
 ====
 
-
+这个库最初是从以前开发的项目中为了提高第三方推送sdk的推送到达率而设计的一种保活方式，有一定的作用，但也有一定的不足之处。
+这里简单提取出来， 使用的时候可以根据系统版本来做适当的配置，选择性启用保活Service。 
 
 License
 =======
